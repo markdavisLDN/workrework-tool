@@ -2,7 +2,7 @@ import type { AssessmentResult } from '@/types/assessment'
 
 const LOGO_URL = process.env.NEXT_PUBLIC_APP_URL
   ? `${process.env.NEXT_PUBLIC_APP_URL}/workrework-logo.png`
-  : 'https://assess.workrework.com/workrework-logo.png'
+  : 'https://workrework-tool-production.up.railway.app/workrework-logo.png'
 
 export function buildUserReportEmail(
   name: string,
@@ -13,15 +13,14 @@ export function buildUserReportEmail(
     .map(
       (item) => `
       <tr>
-        <td style="padding: 20px 0; border-bottom: 1px solid #2A2A2A;">
+        <td style="padding: 16px 0; border-bottom: 1px solid #2A2A2A;">
           <table width="100%" cellpadding="0" cellspacing="0">
             <tr>
               <td>
-                <p style="margin: 0 0 4px; font-family: Inter, Helvetica, sans-serif; font-size: 16px; font-weight: 600; color: #F0EDE6;">${escHtml(item.task)}</p>
-                <p style="margin: 0 0 10px; font-family: Inter, Helvetica, sans-serif; font-size: 14px; color: #9A9590; line-height: 1.6;">${escHtml(item.description)}</p>
+                <p style="margin: 0; font-family: Inter, Helvetica, sans-serif; font-size: 15px; font-weight: 600; color: #F0EDE6;">${escHtml(item.task)}</p>
               </td>
-              <td width="80" style="text-align: right; vertical-align: top; padding-left: 16px;">
-                <p style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-size: 24px; font-weight: 300; color: #C49A3C;">${item.estimated_time_saving_percentage}%</p>
+              <td width="80" style="text-align: right; vertical-align: middle; padding-left: 16px;">
+                <p style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-size: 22px; font-weight: 300; color: #C49A3C;">${item.estimated_time_saving_percentage}%</p>
                 <p style="margin: 0; font-family: Inter, Helvetica, sans-serif; font-size: 11px; color: #9A9590; text-transform: uppercase; letter-spacing: 0.06em;">saving</p>
               </td>
             </tr>
@@ -32,20 +31,19 @@ export function buildUserReportEmail(
     .join('')
 
   const emergingItems = result.emerging_automation_opportunities
+    .slice(0, 3)
     .map(
       (item) => `
       <tr>
-        <td style="padding: 20px 0; border-bottom: 1px solid #2A2A2A;">
+        <td style="padding: 16px 0; border-bottom: 1px solid #2A2A2A;">
           <table width="100%" cellpadding="0" cellspacing="0">
             <tr>
               <td>
-                <p style="margin: 0 0 2px; font-family: Inter, Helvetica, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #C49A3C;">Forward-looking</p>
-                <p style="margin: 0 0 4px; font-family: Inter, Helvetica, sans-serif; font-size: 16px; font-weight: 600; color: #F0EDE6;">${escHtml(item.task)}</p>
-                <p style="margin: 0 0 8px; font-family: Inter, Helvetica, sans-serif; font-size: 14px; color: #9A9590; line-height: 1.6;">${escHtml(item.description)}</p>
-                <p style="margin: 0; font-family: Inter, Helvetica, sans-serif; font-size: 13px; color: #9A9590; font-style: italic;">${escHtml(item.note || '')}</p>
+                <p style="margin: 0 0 4px; font-family: Inter, Helvetica, sans-serif; font-size: 15px; font-weight: 600; color: #F0EDE6;">${escHtml(item.task)}</p>
+                <p style="margin: 0; font-family: Inter, Helvetica, sans-serif; font-size: 14px; color: #9A9590; line-height: 1.5;">${escHtml(item.description)}</p>
               </td>
               <td width="80" style="text-align: right; vertical-align: top; padding-left: 16px;">
-                <p style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-size: 24px; font-weight: 300; color: #C49A3C;">${item.estimated_time_saving_percentage}%</p>
+                <p style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-size: 22px; font-weight: 300; color: #C49A3C;">${item.estimated_time_saving_percentage}%</p>
                 <p style="margin: 0; font-family: Inter, Helvetica, sans-serif; font-size: 11px; color: #9A9590; text-transform: uppercase; letter-spacing: 0.06em;">potential</p>
               </td>
             </tr>
@@ -141,7 +139,7 @@ export function buildUserReportEmail(
           <tr>
             <td style="background-color: #161616; padding: 40px; border-bottom: 1px solid #2A2A2A;">
               <p style="margin: 0 0 16px; font-family: 'Playfair Display', Georgia, serif; font-size: 22px; font-weight: 300; color: #F0EDE6; line-height: 1.4;">Automation is only half the picture.</p>
-              <p style="margin: 0 0 28px; font-family: Inter, Helvetica, sans-serif; font-size: 15px; color: #9A9590; line-height: 1.7;">The real challenge is implementing these changes in a way that is legally sound, considers your people, and sets your organisation up for the future. That is what Work/reWork does.</p>
+              <p style="margin: 0 0 28px; font-family: Inter, Helvetica, sans-serif; font-size: 15px; color: #9A9590; line-height: 1.7;">The real challenge is implementing these changes in a way that considers your people, is legally sound and sets your organisation up for the future. That is what Work/reWork does.</p>
               <a href="mailto:mark@foreseeable.world" style="display: inline-block; background-color: #C49A3C; color: #0D0D0D; font-family: Inter, Helvetica, sans-serif; font-size: 15px; font-weight: 600; letter-spacing: 0.04em; padding: 14px 32px; text-decoration: none;">Book a conversation</a>
             </td>
           </tr>
