@@ -1,8 +1,6 @@
 import type { AssessmentResult } from '@/types/assessment'
 
-const LOGO_URL = process.env.NEXT_PUBLIC_APP_URL
-  ? `${process.env.NEXT_PUBLIC_APP_URL}/workrework-logo.png`
-  : 'https://workrework-tool-production.up.railway.app/workrework-logo.png'
+const LOGO_URL = 'https://workrework-tool-production.up.railway.app/workrework-logo.png'
 
 export function buildUserReportEmail(
   name: string,
