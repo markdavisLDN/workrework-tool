@@ -27,7 +27,7 @@ Return a JSON object with this exact schema:
   "current_automation_opportunities": [
     {
       "task": "string — short task name",
-      "description": "string — what can be automated and how",
+      "description": "string — two sentences max explaining what aspect of this task can be automated and what that would free the person up to do instead. Do not name specific tools or software.",
       "estimated_time_saving_percentage": number,
       "confidence": "high" or "medium"
     }
@@ -35,7 +35,7 @@ Return a JSON object with this exact schema:
   "emerging_automation_opportunities": [
     {
       "task": "string — short task name",
-      "description": "string — what is coming and why it is not fully here yet",
+      "description": "string — exactly one sentence explaining what will become possible and why it is not fully mainstream yet",
       "estimated_time_saving_percentage": number,
       "note": "string — brief explanation of why this is forward-looking"
     }
@@ -44,8 +44,8 @@ Return a JSON object with this exact schema:
 }
 
 Requirements:
-- current_automation_opportunities: 3–5 items
-- emerging_automation_opportunities: 2–4 items
+- current_automation_opportunities: 3–5 items, descriptions are 1–2 sentences, no tool names
+- emerging_automation_opportunities: 2–3 items, descriptions are exactly one sentence
 - estimated_time_saving_percentage: between 5 and 60
 - Be specific to this role, not generic
 - Forward-looking items must clearly explain why they are not yet mainstream

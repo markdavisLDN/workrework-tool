@@ -118,8 +118,8 @@ export default function StepConfirmation({ jobTitle, onReset }: StepConfirmation
             marginBottom: '28px',
           }}
         >
-          The real challenge is implementing these changes in a way that is legally
-          sound, considers your people, and sets your organisation up for the future.
+          The real challenge is implementing these changes in a way that considers
+          your people, is legally sound and sets your organisation up for the future.
           That is what Work/reWork does.
         </p>
         <a
