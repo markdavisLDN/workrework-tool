@@ -13,13 +13,14 @@ export function buildUserReportEmail(
     .map(
       (item) => `
       <tr>
-        <td style="padding: 16px 0; border-bottom: 1px solid #2A2A2A;">
+        <td style="padding: 20px 0; border-bottom: 1px solid #2A2A2A;">
           <table width="100%" cellpadding="0" cellspacing="0">
             <tr>
               <td>
-                <p style="margin: 0; font-family: Inter, Helvetica, sans-serif; font-size: 15px; font-weight: 600; color: #F0EDE6;">${escHtml(item.task)}</p>
+                <p style="margin: 0 0 6px; font-family: Inter, Helvetica, sans-serif; font-size: 15px; font-weight: 600; color: #F0EDE6;">${escHtml(item.task)}</p>
+                <p style="margin: 0; font-family: Inter, Helvetica, sans-serif; font-size: 14px; color: #9A9590; line-height: 1.6;">${escHtml(item.description)}</p>
               </td>
-              <td width="80" style="text-align: right; vertical-align: middle; padding-left: 16px;">
+              <td width="80" style="text-align: right; vertical-align: top; padding-left: 16px; padding-top: 2px;">
                 <p style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-size: 22px; font-weight: 300; color: #C49A3C;">${item.estimated_time_saving_percentage}%</p>
                 <p style="margin: 0; font-family: Inter, Helvetica, sans-serif; font-size: 11px; color: #9A9590; text-transform: uppercase; letter-spacing: 0.06em;">saving</p>
               </td>

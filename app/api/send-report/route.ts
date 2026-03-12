@@ -59,12 +59,13 @@ export async function POST(req: NextRequest) {
     const resend = getResend()
 
     // Send user report email
-    await resend.emails.send({
+    const { error: userEmailError } = await resend.emails.send({
       from: FROM(),
       to: email,
       subject: `Your automation assessment — ${jobTitle}`,
       html: buildUserReportEmail(name, jobTitle, result),
     })
+    if (userEmailError) throw new Error(`Failed to send report: ${JSON.stringify(userEmailError)}`)
 
     // Record submission before sending internal notification (non-admin only)
     if (!admin) {
@@ -100,12 +101,13 @@ async function sendInternalNotification(
   result: AssessmentResult
 ) {
   const html = buildInternalNotificationEmail(name, company, email, jobTitle, result)
-  await getResend().emails.send({
+  const { error } = await getResend().emails.send({
     from: FROM(),
     to: [NOTIFY_1(), NOTIFY_2()],
     subject: `New assessment: ${jobTitle} — ${company}`,
     html,
   })
+  if (error) throw new Error(`Internal notify failed: ${JSON.stringify(error)}`)
 }
 
 async function sendRateLimitAlerts(
@@ -115,10 +117,11 @@ async function sendRateLimitAlerts(
   jobTitle: string
 ) {
   const html = buildRateLimitAlertEmail(name, company, email, jobTitle)
-  await getResend().emails.send({
+  const { error } = await getResend().emails.send({
     from: FROM(),
     to: [NOTIFY_1(), NOTIFY_2()],
     subject: `Repeat submission flagged — ${email}`,
     html,
   })
+  if (error) throw new Error(`Rate limit alert failed: ${JSON.stringify(error)}`)
 }
