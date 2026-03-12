@@ -71,9 +71,12 @@ export async function POST(req: NextRequest) {
       recordSubmission(email)
     }
 
-    // Send internal notification (not for admin submissions)
+    // Send internal notification (not for admin submissions) — errors here don't affect the user
     if (!admin) {
-      await sendInternalNotification(name, company, email, jobTitle, result)
+      sendInternalNotification(name, company, email, jobTitle, result).catch((err) => {
+        console.error('[internal-notify error]', err)
+        console.error('[internal-notify] NOTIFY_1:', NOTIFY_1(), 'NOTIFY_2:', NOTIFY_2(), 'FROM:', FROM())
+      })
     }
 
     return NextResponse.json({ ok: true })
