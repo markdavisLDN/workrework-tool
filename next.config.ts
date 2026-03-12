@@ -1,7 +1,16 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
+import path from 'path'
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '10mb',
+    },
+  },
+  serverExternalPackages: ['pdf-parse', 'mammoth'],
+  turbopack: {
+    root: path.resolve(__dirname),
+  },
+}
 
-export default nextConfig;
+export default nextConfig
