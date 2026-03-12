@@ -1,4 +1,4 @@
-import Anthropic from '@anthropic-ai/sdk'
+import Anthropic, { APIError } from '@anthropic-ai/sdk'
 import type { AssessmentResult } from '@/types/assessment'
 
 function getClient() {
@@ -55,7 +55,9 @@ export async function runAssessment(
   jobTitle: string,
   description: string
 ): Promise<AssessmentResult> {
-  const message = await getClient().messages.create({
+  let message
+  try {
+    message = await getClient().messages.create({
     model: 'claude-sonnet-4-6',
     max_tokens: 2048,
     messages: [
@@ -64,8 +66,19 @@ export async function runAssessment(
         content: USER_PROMPT(jobTitle, description),
       },
     ],
-    system: SYSTEM_PROMPT,
-  })
+      system: SYSTEM_PROMPT,
+    })
+  } catch (err) {
+    if (err instanceof APIError) {
+      if (err.status === 529 || err.status === 503) {
+        throw new Error('Our assessment service is very busy right now. Please try again in a moment.')
+      }
+      if (err.status === 429) {
+        throw new Error('Too many requests. Please wait a moment and try again.')
+      }
+    }
+    throw new Error('We were unable to complete your assessment. Please try again.')
+  }
 
   const content = message.content[0]
   if (content.type !== 'text') {
